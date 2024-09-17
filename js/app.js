@@ -1,3 +1,15 @@
+function navegacaoTeclado() {
+    const inputQtd = document.getElementById('qtd')
+
+    inputQtd.addEventListener('keydown', (event) =>{
+        if(event.key == 'Enter') {
+            event.preventDefault();
+            comprar();
+        }
+    })
+}
+
+window.onload = navegacaoTeclado;
 
 // Função que realiza a compra do ingresso pelo tipo.
 function comprar() {
