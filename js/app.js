@@ -13,11 +13,10 @@ window.onload = navegacaoTeclado;
 
 // Função que realiza a compra do ingresso pelo tipo.
 function comprar() {
-    // Recupera o tipo do ingersso definido no HTML.
-    let tipoIngresso = document.getElementById('tipo-ingresso').value;
-
     // Recupera a quantidade de ingressos escrita no HTML
     let quantidadeIngresso = parseInt(document.getElementById('qtd').value);
+    // Recupera o tipo do ingersso definido no HTML.
+    let tipoIngresso = document.getElementById('tipo-ingresso').value;
 
     // Define como comprar e alterar o valor pelo tipo do ingresso.
     if (tipoIngresso == 'pista') {
@@ -41,26 +40,38 @@ function comprarPorTipo(qtd, tipo) {
     let qtdSuperior = parseInt(document.getElementById('qtd-superior').innerHTML);
     let qtdInferior = parseInt(document.getElementById('qtd-inferior').innerHTML);
 
-    // Bloco de código porco que eu deveria usar uma função auxiliar ou um switch pra ficar mais limpo, mas funciona, é isso que importa.
-    if (tipo === 'pista' && qtd > qtdPista) {
-        // Padrão repetitivo que diz: se o tipo do ingresso for x, e a quantidade for maior que a que tem desse ingresso, diga que a quantidade  é insuficiente e não faça nada.
-        alert('Quantidade insuficiente');
-    } else if (tipo === 'pista' && qtd <= qtdPista) {
-        // Do contrário, tira a quantidade definida desse tipo de ingresso e ajuste o HTML.
-        qtdPista = qtdPista - qtd;
-        document.getElementById('qtd-pista').innerHTML = qtdPista;
-        alert('Compra realizada!');
-    } else if (tipo === 'superior' && qtd > qtdSuperior) {
-        alert('Quantidade insuficiente');
-    } else if (tipo === 'superior' && qtd <= qtdSuperior) {
-        qtdSuperior = qtdSuperior - qtd;
-        document.getElementById('qtd-superior').innerHTML = qtdSuperior;
-        alert('Compra realizada!');
-    } else if (tipo === 'inferior' && qtd > qtdInferior) {
-        alert('Quantidade insuficiente');
-    } else if (tipo === 'inferior' && qtd <= qtdInferior) {
-        qtdInferior = qtdInferior - qtd;
-        document.getElementById('qtd-inferior').innerHTML = qtdInferior;
-        alert('Compra realizada!');
-    }
+
+    //Bloco de código com validações de tipo e quantidade que realiza a compra de fato, selecionando o tipo e customizando o HTML.
+    switch(tipo) {
+        case 'pista':
+        if(qtd > qtdPista || isNaN(qtd) || qtd== 0) {
+            alert('Digite uma quantidade válida');
+        } else {
+            alert('Compra realizada!');
+            qtdPista = qtdPista - qtd;
+            document.getElementById('qtd-pista').innerHTML = qtdPista;
+        }
+        break;
+        case 'superior':
+            if(qtd > qtdSuperior || isNaN(qtd) || qtd== 0) {
+                alert('Digite uma quantidade válida');
+            } else {
+                alert('Compra realizada!');
+                qtdSuperior = qtdSuperior - qtd;
+                document.getElementById('qtd-superior').innerHTML = qtdSuperior;
+            }
+        break;
+        case 'inferior':
+            if(qtd > qtdInferior || isNaN(qtd) || qtd== 0) {
+                alert('Digite uma quantidade válida');
+            } else {
+                alert('Compra realizada!');
+                qtdInferior = qtdInferior - qtd;
+                document.getElementById('qtd-inferior').innerHTML = qtdInferior;
+            }
+        break;
+        default: 
+            alert('Selecione um ingresso e digite a quantidade!');        
+        }
+
 }
